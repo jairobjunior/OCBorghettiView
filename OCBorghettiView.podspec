@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.license       = { :type => 'MIT', :file => 'LICENSE' }
   
   s.source_files  = 'OCBorghettiView'
-  s.resource      = "OCBorghettiView/BorghettiView.bundle"
+  s.resource      = "OCBorghettiView/OCBorghettiView.bundle"
   
   s.platform      = :ios, '6.0'
   s.requires_arc  = true
