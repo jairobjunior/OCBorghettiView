@@ -35,7 +35,7 @@ Finally, install it running ```pod install```.
 3. Make sure all the specs are OK
 4. Push to your fork and do a Pull Request.
 
-## Interface
+## How to use it?
 
 ### OCBorghettiView Class
 
@@ -68,7 +68,7 @@ Finally, install it running ```pod install```.
 @end
 ```
 
-# How to use it
+### Example
 
 ```objective-c
 - (void)viewDidLoad
@@ -108,7 +108,7 @@ Finally, install it running ```pod install```.
 
 ## License
 
-Copyright (c) 2012 Otavio Cordeiro. All rights reserved.
+Copyright (c) 2013 Otavio Cordeiro. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
