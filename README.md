@@ -35,7 +35,7 @@ Finally, install it running ```pod install```.
 3. Make sure all the specs are OK
 4. Push to your fork and do a Pull Request.
 
-## Interface
+## How to use it?
 
 ### OCBorghettiView Class
 
@@ -68,7 +68,7 @@ Finally, install it running ```pod install```.
 @end
 ```
 
-# How to use it
+### Example
 
 ```objective-c
 - (void)viewDidLoad
