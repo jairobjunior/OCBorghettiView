@@ -17,16 +17,14 @@ OCBorghettiView is an easy to use accordion view component for iOS. It was named
 
 ## How to install it?
 
-[CocoaPods](http://cocoapods.org) is the easiest way to install OCBorghettiView. Run ```pod search OCBorghettiView``` to search for the latest version.
-
-Then, copy and past the ```pod``` line to your ```Podfile```. Your podfile shall look like this:
+[CocoaPods](http://cocoapods.org) is the easiest way to install OCBorghettiView. Run ```pod search OCBorghettiView``` to search for the latest version. Then, copy and paste the ```pod``` line to your ```Podfile```. Your podfile should look like:
 
 ```
 platform :ios, '6.0'
 pod 'OCBorghettiView', '~> 0.0.1'
 ```
 
-Finally, install it running ```pod install```.
+Finally, install it by running ```pod install```.
 
 ## How to contribute?
 
