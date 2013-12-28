@@ -1,2 +1,0 @@
-language: objective-c
-script: xctool -project Borghetti.xcodeproj -scheme Borghetti -configuration Release -sdk iphonesimulator -arch i386 build
