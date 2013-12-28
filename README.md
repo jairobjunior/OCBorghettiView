@@ -1,7 +1,4 @@
-# OCBorghettiView
-
-[![Cocoapods](https://cocoapod-badges.herokuapp.com/v/OCBorghettiView/badge.png)](http://beta.cocoapods.org/?q=name%3AOCBorghettiView%2A)
-[![Cocoapods](https://cocoapod-badges.herokuapp.com/p/OCBorghettiView/badge.png)](http://beta.cocoapods.org/?q=name%3AOCBorghettiView%2A)
+# OCBorghettiView [![Cocoapods](https://cocoapod-badges.herokuapp.com/v/OCBorghettiView/badge.png)](http://beta.cocoapods.org/?q=name%3AOCBorghettiView%2A) [![Cocoapods](https://cocoapod-badges.herokuapp.com/p/OCBorghettiView/badge.png)](http://beta.cocoapods.org/?q=name%3AOCBorghettiView%2A)
 
 OCBorghettiView is an easy to use accordion view component for iOS. It was named after [Renato Borghetti](http://youtu.be/xfsaGLesNHE?t=24s), a Brazilian folk musician and composer who works on the traditional style from his home state of Rio Grande do Sul. Borghetti's main instrument is the diatonic button accordion (known as *gaita* in Brazilian Portuguese).
 
