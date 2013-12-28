@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name          = "OCBorghettiView"
   s.version       = "0.0.1"
-  s.summary       = "OCBorghettiView is an easy to use accordion view for iOS."
+  s.summary       = "An easy to use accordion view for iOS."
   s.description  = <<-DESC
   OCBorghettiView is an easy to use accordion view for iOS. It was named after Renato Borghetti,
   a Brazilian folk musician and composer who works on the traditional style from his home state of
