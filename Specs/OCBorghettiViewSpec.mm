@@ -8,8 +8,8 @@ using namespace Cedar::Doubles;
 @property (strong) NSMutableArray *views;
 @property (strong) NSMutableArray *sections;
 @property (assign) NSInteger accordionSectionActive;
-@property (assign) BOOL shouldAnimate;
 @property (assign) NSInteger numberOfSections;
+@property (assign) BOOL shouldAnimate;
 @property (assign) BOOL hasBorder;
 
 - (void)initBorghetti;
