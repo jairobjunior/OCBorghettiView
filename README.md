@@ -42,8 +42,9 @@ Finally, install it by running ```pod install```.
                     andView:(id)sectionView;
 
 @property (nonatomic, assign) NSInteger accordionSectionHeight;
-@property (nonatomic, strong) UIColor *accordionSectionColor;
 @property (nonatomic, strong) UIFont *accordionSectionFont;
+@property (nonatomic, strong) UIColor *accordionSectionFontColor;
+@property (nonatomic, strong) UIColor *accordionSectionColor;
 @property (nonatomic, strong) UIColor *accordionSectionBorderColor;
 @property (nonatomic, assign) id <OCBorghettiViewDelegate> delegate;
 
