@@ -64,13 +64,13 @@ describe(@"OCBorghettiView", ^{
     });
     
     describe(@"font family", ^{
-        context(@"is set", ^{
+        context(@"default", ^{
             it(@"has default font family if font is not set", ^{
                 view.accordionSectionFont should equal([UIFont fontWithName:@"Arial-BoldMT" size:16]);
             });
         });
         
-        context(@"is not set", ^{
+        context(@"user defined", ^{
             beforeEach(^{
                 view.accordionSectionFont = [UIFont fontWithName:@"Arial-BoldMT" size:14];
             });
@@ -81,13 +81,21 @@ describe(@"OCBorghettiView", ^{
         });
     });
     
-    xdescribe(@"section title color", ^{
-        context(@"is set", ^{
-            ;
+    describe(@"section title color", ^{
+        context(@"default", ^{
+            it(@"has default color set", ^{
+                view.accordionSectionFontColor should equal([UIColor whiteColor]);
+            });
         });
         
-        context(@"is not set", ^{
-            ;
+        context(@"user defined", ^{
+            beforeEach(^{
+                view.accordionSectionFontColor = [UIColor redColor];
+            });
+            
+            it(@"has proper color set", ^{
+                view.accordionSectionFontColor should equal([UIColor redColor]);
+            });
         });
     });
     
@@ -266,6 +274,7 @@ describe(@"OCBorghettiView", ^{
             view.accordionSectionHeight = 40;
             view.accordionSectionColor = [UIColor purpleColor];
             view.accordionSectionFont = [UIFont fontWithName:@"Arial-BoldMT" size:14];
+            view.accordionSectionFontColor = [UIColor yellowColor];
             
             targetActionSwizz = [[Swizzlean alloc] initWithClassToSwizzle:[UIButton class]];
             [targetActionSwizz swizzleInstanceMethod:@selector(addTarget:action:forControlEvents:)
@@ -310,6 +319,10 @@ describe(@"OCBorghettiView", ^{
             
             it(@"has correct font family and size", ^{
                 currentSection.titleLabel.font should equal([UIFont fontWithName:@"Arial-BoldMT" size:14]);
+            });
+            
+            it(@"has correcnt font color", ^{
+                [currentSection titleColorForState:UIControlStateNormal] should equal([UIColor yellowColor]);
             });
             
             it(@"has the proper background color", ^{

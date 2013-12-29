@@ -50,6 +50,8 @@
     [section setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [section setTitle:sectionTitle forState:UIControlStateNormal];
     [section.titleLabel setFont:self.accordionSectionFont];
+    [section setTitleColor:self.accordionSectionFontColor
+                  forState:UIControlStateNormal];
     
     [sectionView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [sectionView setAutoresizesSubviews:YES];
@@ -86,6 +88,7 @@
     self.accordionSectionHeight = 30;
     self.accordionSectionColor = [UIColor blackColor];
     self.accordionSectionFont = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+    self.accordionSectionFontColor = [UIColor whiteColor];
     self.accordionSectionBorderColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
     self.hasBorder = NO;
     
