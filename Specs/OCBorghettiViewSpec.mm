@@ -84,17 +84,17 @@ describe(@"OCBorghettiView", ^{
     describe(@"section title color", ^{
         context(@"default", ^{
             it(@"has default color set", ^{
-                view.accordionSectionFontColor should equal([UIColor whiteColor]);
+                view.accordionSectionTitleColor should equal([UIColor whiteColor]);
             });
         });
         
         context(@"user defined", ^{
             beforeEach(^{
-                view.accordionSectionFontColor = [UIColor redColor];
+                view.accordionSectionTitleColor = [UIColor redColor];
             });
             
             it(@"has proper color set", ^{
-                view.accordionSectionFontColor should equal([UIColor redColor]);
+                view.accordionSectionTitleColor should equal([UIColor redColor]);
             });
         });
     });
@@ -274,7 +274,7 @@ describe(@"OCBorghettiView", ^{
             view.accordionSectionHeight = 40;
             view.accordionSectionColor = [UIColor purpleColor];
             view.accordionSectionFont = [UIFont fontWithName:@"Arial-BoldMT" size:14];
-            view.accordionSectionFontColor = [UIColor yellowColor];
+            view.accordionSectionTitleColor = [UIColor yellowColor];
             
             targetActionSwizz = [[Swizzlean alloc] initWithClassToSwizzle:[UIButton class]];
             [targetActionSwizz swizzleInstanceMethod:@selector(addTarget:action:forControlEvents:)
