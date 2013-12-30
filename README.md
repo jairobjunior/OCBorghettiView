@@ -24,6 +24,8 @@ pod 'OCBorghettiView', '~> 0.0.1'
 
 Finally, install it by running ```pod install```.
 
+If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghettiView/`` to your project.
+
 ## How to contribute?
 
 1. Fork and clone this project.
