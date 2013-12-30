@@ -422,7 +422,7 @@ describe(@"OCBorghettiView", ^{
             [view layoutSubviews];
             
             UIButton *firstSection = view.sections[0];
-            firstSection.titleEdgeInsets should equal(UIEdgeInsetsMake(0.0f, -10.0f, 0.0f, 0.0f));
+            firstSection.titleEdgeInsets should equal(UIEdgeInsetsMake(0.0f, -5.0f, 0.0f, 0.0f));
             firstSection.imageEdgeInsets should equal(UIEdgeInsetsMake(0.0f, 295.f, 0.0f, 0.0f));
         });
         

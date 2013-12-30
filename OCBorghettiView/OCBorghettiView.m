@@ -132,7 +132,7 @@
         sectionTitleFrame.size.height = self.accordionSectionHeight;
         [sectionTitle setFrame:sectionTitleFrame];
         
-        [sectionTitle setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, -10.0f, 0.0f, 0.0f)];
+        [sectionTitle setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, -5.0f, 0.0f, 0.0f)];
         [sectionTitle setImageEdgeInsets:UIEdgeInsetsMake(0.0f, self.frame.size.width - 25.0f , 0.0f, 0.0f)];
         
         CGRect sectionViewFrame = [sectionView frame];
