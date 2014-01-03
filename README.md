@@ -1,8 +1,8 @@
 # OCBorghettiView [![Cocoapods](https://cocoapod-badges.herokuapp.com/v/OCBorghettiView/badge.png)](http://beta.cocoapods.org/?q=name%3AOCBorghettiView%2A) [![Cocoapods](https://cocoapod-badges.herokuapp.com/p/OCBorghettiView/badge.png)](http://beta.cocoapods.org/?q=name%3AOCBorghettiView%2A)
 
-OCBorghettiView is an easy to use accordion view component for iOS. It was named after [Renato Borghetti](http://youtu.be/xfsaGLesNHE?t=24s), a Brazilian folk musician and composer who works on the traditional style from his home state of Rio Grande do Sul. Borghetti's main instrument is the diatonic button accordion (known as *gaita* in Brazilian Portuguese).
+![](http://f.cl.ly/items/123O323r1H3K3p0z230k/OCBoghettiViewGitHub.png)
 
-![](http://f.cl.ly/items/2l3X2W1k1j2O3W213T1T/OCBorghettiView.png)
+OCBorghettiView is an easy to use accordion view component for iOS. It was named after [Renato Borghetti](http://youtu.be/xfsaGLesNHE?t=24s), a Brazilian folk musician and composer who works on the traditional style from his home state of Rio Grande do Sul. Borghetti's main instrument is the diatonic button accordion (known as *gaita* in Brazilian Portuguese).
 
 ## Under the Hood
 
@@ -23,6 +23,8 @@ pod 'OCBorghettiView', '~> 0.0.1'
 ```
 
 Finally, install it by running ```pod install```.
+
+If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghettiView/`` to your project.
 
 ## How to contribute?
 
