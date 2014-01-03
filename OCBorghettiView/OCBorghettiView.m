@@ -166,14 +166,11 @@
         
         if (self.hasBorder) {
             if (i > 0 && i < self.views.count) {
-                CALayer *topBorder = [CALayer layer];
-                topBorder.frame = CGRectMake(0.0f, 0.0f, sectionTitle.frame.size.width, 1.0f);
-                topBorder.backgroundColor = self.accordionSectionBorderColor.CGColor;
-                [[sectionTitle layer] addSublayer:topBorder];
-                CALayer *bottomBorder = [CALayer layer];
-                bottomBorder.frame = CGRectMake(0.0f, self.accordionSectionHeight, sectionTitle.frame.size.width, 1.0f);
-                bottomBorder.backgroundColor = self.accordionSectionBorderColor.CGColor;
-                [[sectionTitle layer] addSublayer:bottomBorder];
+                UIView *topBorder = [[UIView alloc] init];
+                topBorder.frame = CGRectMake(0.0f, 0.0f, sectionTitle.frame.size.width, 1.5f);
+                topBorder.backgroundColor = self.accordionSectionBorderColor;
+                topBorder.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+                if (sectionTitle.subviews.count < 3) [sectionTitle addSubview:topBorder];
             }
         }
         
