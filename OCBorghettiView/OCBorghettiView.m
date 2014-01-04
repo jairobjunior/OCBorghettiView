@@ -164,15 +164,7 @@
                 [sectionView setScrollsToTop:NO];
         }
         
-        if (self.hasBorder) {
-            if (i > 0 && i < self.views.count) {
-                UIView *topBorder = [[UIView alloc] init];
-                topBorder.frame = CGRectMake(0.0f, 0.0f, sectionTitle.frame.size.width, 1.5f);
-                topBorder.backgroundColor = self.accordionSectionBorderColor;
-                topBorder.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-                if (sectionTitle.subviews.count < 3) [sectionTitle addSubview:topBorder];
-            }
-        }
+        [self processBorder:sectionTitle atIndex:i];
         
         height += sectionViewFrame.size.height;
         
@@ -186,6 +178,20 @@
     }
     
     self.shouldAnimate = YES;
+}
+
+- (void)processBorder:(UIButton *)sectionTitle
+              atIndex:(NSInteger)index
+{
+    if (self.hasBorder) {
+        if (index > 0) {
+            UIView *topBorder = [[UIView alloc] init];
+            topBorder.frame = CGRectMake(0.0f, 0.0f, sectionTitle.frame.size.width, 1.5f);
+            topBorder.backgroundColor = self.accordionSectionBorderColor;
+            topBorder.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+            if (sectionTitle.subviews.count < 3) [sectionTitle addSubview:topBorder];
+        }
+    }
 }
 
 @end

@@ -14,6 +14,8 @@ using namespace Cedar::Doubles;
 
 - (void)initBorghetti;
 - (void)sectionTouched:(id)sender;
+- (void)processBorder:(UIButton *)sectionTitle
+              atIndex:(NSInteger)index;
 @end
 
 SPEC_BEGIN(BorghettiViewSpec)
@@ -603,6 +605,52 @@ describe(@"OCBorghettiView", ^{
                         hasBeenCalledWithShouldAnimateNO should be_truthy;
                     });
                 });
+            });
+        });
+    });
+    
+    describe(@"#processBorder:atIndex:", ^{
+        __block UIButton *fakeSection;
+        __block NSArray *fakeSubviews;
+        
+        beforeEach(^{
+            fakeSection = nice_fake_for([UIButton class]);
+            fakeSubviews = @[nice_fake_for([UIImageView class]), nice_fake_for([UILabel class])];
+            fakeSection stub_method(@selector(subviews)).and_return(fakeSubviews);
+        });
+        
+        context(@"has border", ^{
+            context(@"and index = 0", ^{
+                beforeEach(^{
+                    view.hasBorder = YES;
+                    [view processBorder:fakeSection atIndex:0];
+                });
+                
+                it(@"should not add border as subview", ^{
+                    fakeSection should_not have_received(@selector(addSubview:));
+                });
+            });
+            
+            context(@"and index > 0", ^{
+                beforeEach(^{
+                    view.hasBorder = YES;
+                    [view processBorder:fakeSection atIndex:1];
+                });
+                
+                it(@"should have a border as subview", ^{
+                    fakeSection should have_received(@selector(addSubview:));
+                });
+            });
+        });
+        
+        context(@"does not have border", ^{
+            beforeEach(^{
+                view.hasBorder = NO;
+                [view processBorder:fakeSection atIndex:1];
+            });
+            
+            it(@"should not add border as subview", ^{
+                fakeSection should_not have_received(@selector(addSubview:));
             });
         });
     });
