@@ -1,4 +1,4 @@
-# OCBorghettiView [![Cocoapods](https://cocoapod-badges.herokuapp.com/v/OCBorghettiView/badge.png)](http://beta.cocoapods.org/?q=name%3AOCBorghettiView%2A) [![Cocoapods](https://cocoapod-badges.herokuapp.com/p/OCBorghettiView/badge.png)](http://beta.cocoapods.org/?q=name%3AOCBorghettiView%2A)
+# OCBorghettiView
 
 ![](http://f.cl.ly/items/123O323r1H3K3p0z230k/OCBoghettiViewGitHub.png)
 
