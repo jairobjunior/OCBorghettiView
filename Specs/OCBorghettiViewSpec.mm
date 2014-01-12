@@ -27,6 +27,7 @@ describe(@"OCBorghettiView", ^{
     
     beforeEach(^{
         fakeDelegate = nice_fake_for(@protocol(OCBorghettiViewDelegate));
+        fakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).and_return(YES);
         
         viewFrame = CGRectMake(0, 0, 320, 480);
         view = [[OCBorghettiView alloc] initWithFrame:viewFrame];
@@ -428,113 +429,188 @@ describe(@"OCBorghettiView", ^{
             firstSection.imageEdgeInsets should equal(UIEdgeInsetsMake(0.0f, 295.f, 0.0f, 0.0f));
         });
         
-        context(@"active section is firstView", ^{
-            beforeEach(^{
-                view.accordionSectionActive = 0;
-                [view layoutSubviews];
+        describe(@"delegate implements accordion:shouldSelectSection:withTitle:", ^{
+            context(@"active section is firstView", ^{
+                beforeEach(^{
+                    view.accordionSectionActive = 0;
+                    [view layoutSubviews];
+                });
+                
+                it(@"has views with proper frame", ^{
+                    firstView.frame should equal(CGRectMake(0, 30, 320, 390));
+                    secondView.frame should equal(CGRectMake(0, 450, 320, 0));
+                    thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+                });
+                
+                it(@"sets the proper image for the active section (firstView)", ^{
+                    [firstSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_down_arrow.png"]);
+                });
+                
+                it(@"sets the proper image for the non-active sections (second and third)", ^{
+                    [secondSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
+                    [thirdSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
+                });
+                
+                it(@"unsets scroll to top for the non-active view (that responds to setScrollsToTop:)", ^{
+                    secondView.scrollsToTop should_not be_truthy;
+                });
             });
             
-            it(@"has views with proper frame", ^{
-                firstView.frame should equal(CGRectMake(0, 30, 320, 390));
-                secondView.frame should equal(CGRectMake(0, 450, 320, 0));
-                thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+            context(@"active section is secondView", ^{
+                beforeEach(^{
+                    view.accordionSectionActive = 1;
+                    [view layoutSubviews];
+                });
+                
+                it(@"has views with proper frame", ^{
+                    firstView.frame should equal(CGRectMake(0, 30, 320, 0));
+                    secondView.frame should equal(CGRectMake(0, 60, 320, 390));
+                    thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+                });
+                
+                it(@"sets the proper image for the active section (secondSection)", ^{
+                    [secondSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_down_arrow.png"]);
+                });
+                
+                it(@"sets the proper image for the non-active sections (first and third)", ^{
+                    [firstSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
+                    [thirdSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
+                });
+                
+                it(@"sets scroll to top for the active view (that responds to setScrollsToTop:)", ^{
+                    secondView.scrollsToTop should be_truthy;
+                });
             });
             
-            it(@"sets the proper image for the active section (firstView)", ^{
-                [firstSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_down_arrow.png"]);
+            context(@"active section is thirdView", ^{
+                beforeEach(^{
+                    view.accordionSectionActive = 2;
+                    [view layoutSubviews];
+                });
+                
+                it(@"has views with proper frame", ^{
+                    firstView.frame should equal(CGRectMake(0, 30, 320, 0));
+                    secondView.frame should equal(CGRectMake(0, 60, 320, 0));
+                    thirdView.frame should equal(CGRectMake(0, 90, 320, 390));
+                });
+                
+                it(@"sets the proper image for the active section (thirdSection)", ^{
+                    [thirdSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_down_arrow.png"]);
+                });
+                
+                it(@"sets the proper image for the non-active sections (first and second)", ^{
+                    [firstSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
+                    [secondSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
+                });
             });
             
-            it(@"sets the proper image for the non-active sections (second and third)", ^{
-                [secondSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
-                [thirdSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
+            context(@"active section is an invalid view (e.g. -1)", ^{
+                beforeEach(^{
+                    view.accordionSectionActive = 0;
+                    view.accordionSectionActive = -1;
+                    [view layoutSubviews];
+                });
+                
+                it(@"active section is still accordionSectionActive = 0", ^{
+                    view.accordionSectionActive should equal(0);
+                });
+                
+                it(@"has views with proper frame", ^{
+                    firstView.frame should equal(CGRectMake(0, 30, 320, 390));
+                    secondView.frame should equal(CGRectMake(0, 450, 320, 0));
+                    thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+                });
             });
             
-            it(@"unsets scroll to top for the non-active view (that responds to setScrollsToTop:)", ^{
-                secondView.scrollsToTop should_not be_truthy;
+            context(@"active section is an invalid view (e.g. 4)", ^{
+                beforeEach(^{
+                    view.accordionSectionActive = 0;
+                    view.accordionSectionActive = 4;
+                    [view layoutSubviews];
+                });
+                
+                it(@"active section is still accordionSectionActive = 0", ^{
+                    view.accordionSectionActive should equal(0);
+                });
+                
+                it(@"has views with proper frame", ^{
+                    firstView.frame should equal(CGRectMake(0, 30, 320, 390));
+                    secondView.frame should equal(CGRectMake(0, 450, 320, 0));
+                    thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+                });
             });
         });
         
-        context(@"active section is secondView", ^{
+        describe(@"delegate does not implement accordion:shouldSelectSection:withTitle:", ^{
+            __block id<OCBorghettiViewDelegate> newfakeDelegate;
+            
             beforeEach(^{
-                view.accordionSectionActive = 1;
-                [view layoutSubviews];
+                newfakeDelegate = nice_fake_for(@protocol(OCBorghettiViewDelegate));
             });
             
-            it(@"has views with proper frame", ^{
-                firstView.frame should equal(CGRectMake(0, 30, 320, 0));
-                secondView.frame should equal(CGRectMake(0, 60, 320, 390));
-                thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+            context(@"active section is first", ^{
+                beforeEach(^{
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(secondView).and_with(@"Second Section").and_return(NO);
+                    view.delegate = newfakeDelegate;
+                    
+                    view.accordionSectionActive = 0;
+                    view.accordionSectionActive = 1;
+                    [view layoutSubviews];
+                });
+                
+                it(@"should stay on this view and second view is selected", ^{
+                    view.accordionSectionActive should equal(0);
+                });
+                
+                it(@"has views with proper frame", ^{
+                    firstView.frame should equal(CGRectMake(0, 30, 320, 390));
+                    secondView.frame should equal(CGRectMake(0, 450, 320, 0));
+                    thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+                });
             });
             
-            it(@"sets the proper image for the active section (secondSection)", ^{
-                [secondSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_down_arrow.png"]);
+            context(@"active section is first", ^{
+                beforeEach(^{
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(NO);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(firstSection).and_with(@"First Section").and_return(YES);
+                    view.delegate = newfakeDelegate;
+                    
+                    view.accordionSectionActive = 0;
+                    view.accordionSectionActive = 2;
+                    [view layoutSubviews];
+                });
+                
+                it(@"should stay on this view and third view is selected", ^{
+                    view.accordionSectionActive should equal(0);
+                });
+                
+                it(@"has views with proper frame", ^{
+                    firstView.frame should equal(CGRectMake(0, 30, 320, 390));
+                    secondView.frame should equal(CGRectMake(0, 450, 320, 0));
+                    thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+                });
             });
             
-            it(@"sets the proper image for the non-active sections (first and third)", ^{
-                [firstSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
-                [thirdSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
-            });
-            
-            it(@"sets scroll to top for the active view (that responds to setScrollsToTop:)", ^{
-                secondView.scrollsToTop should be_truthy;
-            });
-        });
-        
-        context(@"active section is thirdView", ^{
-            beforeEach(^{
-                view.accordionSectionActive = 2;
-                [view layoutSubviews];
-            });
-            
-            it(@"has views with proper frame", ^{
-                firstView.frame should equal(CGRectMake(0, 30, 320, 0));
-                secondView.frame should equal(CGRectMake(0, 60, 320, 0));
-                thirdView.frame should equal(CGRectMake(0, 90, 320, 390));
-            });
-            
-            it(@"sets the proper image for the active section (thirdSection)", ^{
-                [thirdSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_down_arrow.png"]);
-            });
-            
-            it(@"sets the proper image for the non-active sections (first and second)", ^{
-                [firstSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
-                [secondSection imageForState:UIControlStateNormal] should equal([UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]);
-            });
-        });
-        
-        context(@"active section is an invalid view (e.g. -1)", ^{
-            beforeEach(^{
-                view.accordionSectionActive = 0;
-                view.accordionSectionActive = -1;
-                [view layoutSubviews];
-            });
-            
-            it(@"active section is still accordionSectionActive = 0", ^{
-                view.accordionSectionActive should equal(0);
-            });
-            
-            it(@"has views with proper frame", ^{
-                firstView.frame should equal(CGRectMake(0, 30, 320, 390));
-                secondView.frame should equal(CGRectMake(0, 450, 320, 0));
-                thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
-            });
-        });
-        
-        context(@"active section is an invalid view (e.g. 4)", ^{
-            beforeEach(^{
-                view.accordionSectionActive = 0;
-                view.accordionSectionActive = 4;
-                [view layoutSubviews];
-            });
-            
-            it(@"active section is still accordionSectionActive = 0", ^{
-                view.accordionSectionActive should equal(0);
-            });
-            
-            it(@"has views with proper frame", ^{
-                firstView.frame should equal(CGRectMake(0, 30, 320, 390));
-                secondView.frame should equal(CGRectMake(0, 450, 320, 0));
-                thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+            context(@"active section is third", ^{
+                beforeEach(^{
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(YES);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(firstSection).and_with(@"First Section").and_return(NO);
+                    view.delegate = newfakeDelegate;
+                    
+                    view.accordionSectionActive = 2;
+                    view.accordionSectionActive = 0;
+                    [view layoutSubviews];
+                });
+                
+                it(@"should stay on this view and first view is selected", ^{
+                    view.accordionSectionActive should equal(2);
+                });
+                
+                it(@"has views with proper frame", ^{
+                    firstView.frame should equal(CGRectMake(0, 30, 320, 0));
+                    secondView.frame should equal(CGRectMake(0, 60, 320, 0));
+                    thirdView.frame should equal(CGRectMake(0, 90, 320, 390));
+                });
             });
         });
         

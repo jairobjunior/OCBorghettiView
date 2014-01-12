@@ -65,8 +65,6 @@
     [section addTarget:self
                 action:@selector(sectionSelected:)
       forControlEvents:UIControlEventTouchUpInside];
-    
-    self.accordionSectionActive = 0;
 }
 
 #pragma mark Setter
@@ -80,8 +78,12 @@
 - (void)setAccordionSectionActive:(NSInteger)accordionSectionActive
 {
     if (accordionSectionActive >= 0 && accordionSectionActive < self.sections.count) {
+        if ([self.delegate respondsToSelector:@selector(accordion:shouldSelectSection:withTitle:)] &&
+            [self.delegate accordion:self
+                 shouldSelectSection:self.views[accordionSectionActive]
+                           withTitle:[[self.sections[accordionSectionActive] titleLabel] text]] == NO) return;
+
         _accordionSectionActive = accordionSectionActive;
-        
         [self setNeedsLayout];
         
         if ([self.delegate respondsToSelector:@selector(accordion:didSelectSection:withTitle:)]) {

@@ -10,8 +10,10 @@
 
 @optional
 
-- (void)accordion:(OCBorghettiView *)accordion
- didSelectSection:(UIView *)view
+- (void)accordion:(OCBorghettiView *)accordion didSelectSection:(UIView *)view
+        withTitle:(NSString *)title;
+
+- (BOOL)accordion:(OCBorghettiView *)accordion shouldSelectSection:(UIView *)view
         withTitle:(NSString *)title;
 
 @end
