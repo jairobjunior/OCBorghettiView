@@ -19,7 +19,7 @@ OCBorghettiView is an easy to use accordion view component for iOS. It was named
 
 ```
 platform :ios, '6.0'
-pod 'OCBorghettiView', '~> 0.0.1'
+pod 'OCBorghettiView', '~> 0.0.3'
 ```
 
 Finally, install it by running ```pod install```.
