@@ -7,7 +7,6 @@ using namespace Cedar::Doubles;
 @interface OCBorghettiView (Spec)
 @property (strong) NSMutableArray *views;
 @property (strong) NSMutableArray *sections;
-@property (assign) NSInteger accordionSectionActive;
 @property (assign) NSInteger numberOfSections;
 @property (assign) BOOL shouldAnimate;
 @property (assign) BOOL hasBorder;
