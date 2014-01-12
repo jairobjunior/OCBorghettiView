@@ -502,6 +502,42 @@ describe(@"OCBorghettiView", ^{
             });
         });
         
+        context(@"active section is an invalid view (e.g. -1)", ^{
+            beforeEach(^{
+                view.accordionSectionActive = 0;
+                view.accordionSectionActive = -1;
+                [view layoutSubviews];
+            });
+            
+            it(@"active section is still accordionSectionActive = 0", ^{
+                view.accordionSectionActive should equal(0);
+            });
+            
+            it(@"has views with proper frame", ^{
+                firstView.frame should equal(CGRectMake(0, 30, 320, 390));
+                secondView.frame should equal(CGRectMake(0, 450, 320, 0));
+                thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+            });
+        });
+        
+        context(@"active section is an invalid view (e.g. 4)", ^{
+            beforeEach(^{
+                view.accordionSectionActive = 0;
+                view.accordionSectionActive = 4;
+                [view layoutSubviews];
+            });
+            
+            it(@"active section is still accordionSectionActive = 0", ^{
+                view.accordionSectionActive should equal(0);
+            });
+            
+            it(@"has views with proper frame", ^{
+                firstView.frame should equal(CGRectMake(0, 30, 320, 390));
+                secondView.frame should equal(CGRectMake(0, 450, 320, 0));
+                thirdView.frame should equal(CGRectMake(0, 480, 320, 0));
+            });
+        });
+        
         describe(@"animation", ^{
             __block Swizzlean *beginSwizz;
             __block Swizzlean *animationDurationSwizz;

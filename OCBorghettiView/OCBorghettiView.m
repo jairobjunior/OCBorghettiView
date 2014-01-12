@@ -1,12 +1,11 @@
 #import "OCBorghettiView.h"
 
 @interface OCBorghettiView ()
-@property (strong) NSMutableArray *views;
-@property (strong) NSMutableArray *sections;
-@property (assign) NSInteger accordionSectionActive;
-@property (assign) NSInteger numberOfSections;
-@property (assign) BOOL shouldAnimate;
-@property (assign) BOOL hasBorder;
+@property (nonatomic, strong) NSMutableArray *views;
+@property (nonatomic, strong) NSMutableArray *sections;
+@property (nonatomic, assign) NSInteger numberOfSections;
+@property (nonatomic, assign) BOOL shouldAnimate;
+@property (nonatomic, assign) BOOL hasBorder;
 @end
 
 @implementation OCBorghettiView
@@ -78,6 +77,21 @@
     self.hasBorder = YES;
 }
 
+- (void)setAccordionSectionActive:(NSInteger)accordionSectionActive
+{
+    if (accordionSectionActive >= 0 && accordionSectionActive < self.sections.count) {
+        _accordionSectionActive = accordionSectionActive;
+        
+        [self setNeedsLayout];
+        
+        if ([self.delegate respondsToSelector:@selector(accordion:didSelectSection:withTitle:)]) {
+            [self.delegate accordion:self
+                    didSelectSection:self.views[self.accordionSectionActive]
+                           withTitle:[[self.sections[self.accordionSectionActive] titleLabel] text]];
+        }
+    }
+}
+
 #pragma mark - Private
 
 - (void)initBorghetti
@@ -103,13 +117,6 @@
 - (void)sectionSelected:(id)sender
 {
     self.accordionSectionActive = [sender tag];
-    [self setNeedsLayout];
-    
-    if ([self.delegate respondsToSelector:@selector(accordion:didSelectSection:withTitle:)]) {
-        [self.delegate accordion:self
-                didSelectSection:self.views[[sender tag]]
-                       withTitle:[[self.sections[[sender tag]] titleLabel] text]];
-    }
 }
 
 - (void)didAddSubview:(UIView *)subview

@@ -24,6 +24,7 @@
 - (void)addSectionWithTitle:(NSString *)sectionTitle
                     andView:(id)sectionView;
 
+@property (nonatomic, assign) NSInteger accordionSectionActive;
 @property (nonatomic, assign) NSInteger accordionSectionHeight;
 @property (nonatomic, strong) UIFont *accordionSectionFont;
 @property (nonatomic, strong) UIColor *accordionSectionTitleColor;
