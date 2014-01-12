@@ -64,7 +64,7 @@
     
     [section setTag:self.sections.count - 1];
     [section addTarget:self
-                action:@selector(sectionTouched:)
+                action:@selector(sectionSelected:)
       forControlEvents:UIControlEventTouchUpInside];
     
     self.accordionSectionActive = 0;
@@ -100,7 +100,7 @@
     self.shouldAnimate = NO;
 }
 
-- (void)sectionTouched:(id)sender
+- (void)sectionSelected:(id)sender
 {
     self.accordionSectionActive = [sender tag];
     [self setNeedsLayout];

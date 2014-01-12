@@ -13,7 +13,7 @@ using namespace Cedar::Doubles;
 @property (assign) BOOL hasBorder;
 
 - (void)initBorghetti;
-- (void)sectionTouched:(id)sender;
+- (void)sectionSelected:(id)sender;
 - (void)processBorder:(UIButton *)sectionTitle
               atIndex:(NSInteger)index;
 @end
@@ -101,7 +101,7 @@ describe(@"OCBorghettiView", ^{
         });
     });
     
-    describe(@"#sectionTouched:", ^{
+    describe(@"#sectionSelected:", ^{
         __block UIButton *fakeButton;
         __block Swizzlean *layoutSwizz;
         __block BOOL needsLayoutHasBeenCalled;
@@ -135,7 +135,7 @@ describe(@"OCBorghettiView", ^{
                      needsLayoutHasBeenCalled = YES;
                  }];
             
-            [view sectionTouched:fakeButton];
+            [view sectionSelected:fakeButton];
         });
         
         it(@"should set the ative section according the tag on the button", ^{
@@ -361,7 +361,7 @@ describe(@"OCBorghettiView", ^{
                 });
                 
                 it(@"has an action", ^{
-                    passedSelector should equal(@selector(sectionTouched:));
+                    passedSelector should equal(@selector(sectionSelected:));
                 });
                 
                 it(@"has correnct event", ^{
