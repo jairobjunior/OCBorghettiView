@@ -43,6 +43,7 @@ If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghe
 - (void)addSectionWithTitle:(NSString *)sectionTitle
                     andView:(id)sectionView;
 
+@property (nonatomic, assign) NSInteger accordionSectionActive;
 @property (nonatomic, assign) NSInteger accordionSectionHeight;
 @property (nonatomic, strong) UIFont *accordionSectionFont;
 @property (nonatomic, strong) UIColor *accordionSectionTitleColor;
@@ -60,8 +61,10 @@ If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghe
 
 @optional
 
-- (void)accordion:(OCBorghettiView *)accordion
- didSelectSection:(UIView *)view
+- (void)accordion:(OCBorghettiView *)accordion didSelectSection:(UIView *)view
+        withTitle:(NSString *)title;
+
+- (BOOL)accordion:(OCBorghettiView *)accordion shouldSelectSection:(UIView *)view
         withTitle:(NSString *)title;
 
 @end

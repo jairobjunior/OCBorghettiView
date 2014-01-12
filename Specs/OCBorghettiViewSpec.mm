@@ -557,7 +557,7 @@ describe(@"OCBorghettiView", ^{
                     [view layoutSubviews];
                 });
                 
-                it(@"should stay on this view and second view is selected", ^{
+                it(@"should stay on this view when second view is selected", ^{
                     view.accordionSectionActive should equal(0);
                 });
                 
@@ -579,7 +579,7 @@ describe(@"OCBorghettiView", ^{
                     [view layoutSubviews];
                 });
                 
-                it(@"should stay on this view and third view is selected", ^{
+                it(@"should stay on this view when third view is selected", ^{
                     view.accordionSectionActive should equal(0);
                 });
                 
@@ -602,7 +602,7 @@ describe(@"OCBorghettiView", ^{
                     [view layoutSubviews];
                 });
                 
-                it(@"should stay on this view and first view is selected", ^{
+                it(@"should stay on this view when first view is selected", ^{
                     view.accordionSectionActive should equal(1);
                 });
                 
@@ -625,7 +625,7 @@ describe(@"OCBorghettiView", ^{
                     [view layoutSubviews];
                 });
                 
-                it(@"should stay on this view and third view is selected", ^{
+                it(@"should stay on this view when third view is selected", ^{
                     view.accordionSectionActive should equal(1);
                 });
                 
@@ -648,7 +648,7 @@ describe(@"OCBorghettiView", ^{
                     [view layoutSubviews];
                 });
                 
-                it(@"should stay on this view and first view is selected", ^{
+                it(@"should stay on this view when first view is selected", ^{
                     view.accordionSectionActive should equal(2);
                 });
                 
@@ -670,7 +670,7 @@ describe(@"OCBorghettiView", ^{
                     [view layoutSubviews];
                 });
                 
-                it(@"should stay on this view and second view is selected", ^{
+                it(@"should stay on this view when second view is selected", ^{
                     view.accordionSectionActive should equal(2);
                 });
                 
