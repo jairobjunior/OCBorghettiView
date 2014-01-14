@@ -19,7 +19,7 @@ OCBorghettiView is an easy to use accordion view component for iOS. It was named
 
 ```
 platform :ios, '6.0'
-pod 'OCBorghettiView', '~> 0.0.3'
+pod 'OCBorghettiView', '~> X.Y.Z'
 ```
 
 Finally, install it by running ```pod install```.
@@ -43,7 +43,7 @@ If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghe
 - (void)addSectionWithTitle:(NSString *)sectionTitle
                     andView:(id)sectionView;
 
-@property (nonatomic, assign) NSInteger accordionSectionActive;
+@property (nonatomic, assign) NSInteger accordionActiveSection;
 @property (nonatomic, assign) NSInteger accordionSectionHeight;
 @property (nonatomic, strong) UIFont *accordionSectionFont;
 @property (nonatomic, strong) UIColor *accordionSectionTitleColor;
@@ -53,7 +53,7 @@ If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghe
 
 @end
 ```
-    
+
 ### OCBorghettiViewDelegate Protocol
 
 ```objective-c
@@ -61,10 +61,12 @@ If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghe
 
 @optional
 
-- (void)accordion:(OCBorghettiView *)accordion didSelectSection:(UIView *)view
+- (void)accordion:(OCBorghettiView *)accordion
+    didSelectView:(UIView *)view
         withTitle:(NSString *)title;
 
-- (BOOL)accordion:(OCBorghettiView *)accordion shouldSelectSection:(UIView *)view
+- (BOOL)accordion:(OCBorghettiView *)accordion
+ shouldSelectView:(UIView *)view
         withTitle:(NSString *)title;
 
 @end
