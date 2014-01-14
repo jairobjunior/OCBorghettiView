@@ -10,10 +10,12 @@
 
 @optional
 
-- (void)accordion:(OCBorghettiView *)accordion didSelectSection:(UIView *)view
+- (void)accordion:(OCBorghettiView *)accordion
+    didSelectView:(UIView *)view
         withTitle:(NSString *)title;
 
-- (BOOL)accordion:(OCBorghettiView *)accordion shouldSelectSection:(UIView *)view
+- (BOOL)accordion:(OCBorghettiView *)accordion
+ shouldSelectView:(UIView *)view
         withTitle:(NSString *)title;
 
 @end
@@ -26,7 +28,7 @@
 - (void)addSectionWithTitle:(NSString *)sectionTitle
                     andView:(id)sectionView;
 
-@property (nonatomic, assign) NSInteger accordionSectionActive;
+@property (nonatomic, assign) NSInteger accordionActiveSection;
 @property (nonatomic, assign) NSInteger accordionSectionHeight;
 @property (nonatomic, strong) UIFont *accordionSectionFont;
 @property (nonatomic, strong) UIColor *accordionSectionTitleColor;

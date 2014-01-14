@@ -26,7 +26,7 @@ describe(@"OCBorghettiView", ^{
     
     beforeEach(^{
         fakeDelegate = nice_fake_for(@protocol(OCBorghettiViewDelegate));
-        fakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).and_return(YES);
+        fakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).and_return(YES);
         
         viewFrame = CGRectMake(0, 0, 320, 480);
         view = [[OCBorghettiView alloc] initWithFrame:viewFrame];
@@ -139,7 +139,7 @@ describe(@"OCBorghettiView", ^{
         });
         
         it(@"should set the ative section according the tag on the button", ^{
-            view.accordionSectionActive should equal(0);
+            view.accordionActiveSection should equal(0);
         });
         
         it(@"should have called the setNeedsLayout method", ^{
@@ -149,7 +149,7 @@ describe(@"OCBorghettiView", ^{
         describe(@"delegate", ^{
             context(@"is set", ^{
                 it(@"should calls the delegate method", ^{
-                    fakeDelegate should have_received(@selector(accordion:didSelectSection:withTitle:));
+                    fakeDelegate should have_received(@selector(accordion:didSelectView:withTitle:));
                 });
             });
         });
@@ -305,7 +305,7 @@ describe(@"OCBorghettiView", ^{
         });
         
         it(@"sets the active section to 0", ^{
-            view.accordionSectionActive should equal(0);
+            view.accordionActiveSection should equal(0);
         });
         
         describe(@"section", ^{
@@ -428,10 +428,10 @@ describe(@"OCBorghettiView", ^{
             firstSection.imageEdgeInsets should equal(UIEdgeInsetsMake(0.0f, 295.f, 0.0f, 0.0f));
         });
         
-        describe(@"delegate implements accordion:shouldSelectSection:withTitle: returning YES", ^{
+        describe(@"delegate implements accordion:shouldSelectView:withTitle: returning YES", ^{
             context(@"active section is firstView", ^{
                 beforeEach(^{
-                    view.accordionSectionActive = 0;
+                    view.accordionActiveSection = 0;
                     [view layoutSubviews];
                 });
                 
@@ -457,7 +457,7 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is secondView", ^{
                 beforeEach(^{
-                    view.accordionSectionActive = 1;
+                    view.accordionActiveSection = 1;
                     [view layoutSubviews];
                 });
                 
@@ -483,7 +483,7 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is thirdView", ^{
                 beforeEach(^{
-                    view.accordionSectionActive = 2;
+                    view.accordionActiveSection = 2;
                     [view layoutSubviews];
                 });
                 
@@ -505,13 +505,13 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is an invalid view (e.g. -1)", ^{
                 beforeEach(^{
-                    view.accordionSectionActive = 0;
-                    view.accordionSectionActive = -1;
+                    view.accordionActiveSection = 0;
+                    view.accordionActiveSection = -1;
                     [view layoutSubviews];
                 });
                 
-                it(@"active section is still accordionSectionActive = 0", ^{
-                    view.accordionSectionActive should equal(0);
+                it(@"active section is still accordionActiveSection = 0", ^{
+                    view.accordionActiveSection should equal(0);
                 });
                 
                 it(@"has views with proper frame", ^{
@@ -523,13 +523,13 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is an invalid view (e.g. 4)", ^{
                 beforeEach(^{
-                    view.accordionSectionActive = 0;
-                    view.accordionSectionActive = 4;
+                    view.accordionActiveSection = 0;
+                    view.accordionActiveSection = 4;
                     [view layoutSubviews];
                 });
                 
-                it(@"active section is still accordionSectionActive = 0", ^{
-                    view.accordionSectionActive should equal(0);
+                it(@"active section is still accordionActiveSection = 0", ^{
+                    view.accordionActiveSection should equal(0);
                 });
                 
                 it(@"has views with proper frame", ^{
@@ -540,7 +540,7 @@ describe(@"OCBorghettiView", ^{
             });
         });
         
-        describe(@"delegate implements accordion:shouldSelectSection:withTitle: returning NO", ^{
+        describe(@"delegate implements accordion:shouldSelectView:withTitle: returning NO", ^{
             __block id<OCBorghettiViewDelegate> newfakeDelegate;
             
             beforeEach(^{
@@ -549,16 +549,16 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is first", ^{
                 beforeEach(^{
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(secondView).and_with(@"Second Section").and_return(NO);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(secondView).and_with(@"Second Section").and_return(NO);
                     view.delegate = newfakeDelegate;
                     
-                    view.accordionSectionActive = 0;
-                    view.accordionSectionActive = 1;
+                    view.accordionActiveSection = 0;
+                    view.accordionActiveSection = 1;
                     [view layoutSubviews];
                 });
                 
                 it(@"should stay on this view when second view is selected", ^{
-                    view.accordionSectionActive should equal(0);
+                    view.accordionActiveSection should equal(0);
                 });
                 
                 it(@"has views with proper frame", ^{
@@ -570,17 +570,17 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is first", ^{
                 beforeEach(^{
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(NO);
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(firstView).and_with(@"First Section").and_return(YES);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(NO);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(firstView).and_with(@"First Section").and_return(YES);
                     view.delegate = newfakeDelegate;
                     
-                    view.accordionSectionActive = 0;
-                    view.accordionSectionActive = 2;
+                    view.accordionActiveSection = 0;
+                    view.accordionActiveSection = 2;
                     [view layoutSubviews];
                 });
                 
                 it(@"should stay on this view when third view is selected", ^{
-                    view.accordionSectionActive should equal(0);
+                    view.accordionActiveSection should equal(0);
                 });
                 
                 it(@"has views with proper frame", ^{
@@ -592,18 +592,18 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is second", ^{
                 beforeEach(^{
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(firstView).and_with(@"First Section").and_return(NO);
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(secondView).and_with(@"Second Section").and_return(YES);
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(YES);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(firstView).and_with(@"First Section").and_return(NO);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(secondView).and_with(@"Second Section").and_return(YES);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(YES);
                     view.delegate = newfakeDelegate;
                     
-                    view.accordionSectionActive = 1;
-                    view.accordionSectionActive = 0;
+                    view.accordionActiveSection = 1;
+                    view.accordionActiveSection = 0;
                     [view layoutSubviews];
                 });
                 
                 it(@"should stay on this view when first view is selected", ^{
-                    view.accordionSectionActive should equal(1);
+                    view.accordionActiveSection should equal(1);
                 });
                 
                 it(@"has views with proper frame", ^{
@@ -615,18 +615,18 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is second", ^{
                 beforeEach(^{
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(firstView).and_with(@"First Section").and_return(YES);
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(secondView).and_with(@"Second Section").and_return(YES);
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(NO);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(firstView).and_with(@"First Section").and_return(YES);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(secondView).and_with(@"Second Section").and_return(YES);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(NO);
                     view.delegate = newfakeDelegate;
                     
-                    view.accordionSectionActive = 1;
-                    view.accordionSectionActive = 2;
+                    view.accordionActiveSection = 1;
+                    view.accordionActiveSection = 2;
                     [view layoutSubviews];
                 });
                 
                 it(@"should stay on this view when third view is selected", ^{
-                    view.accordionSectionActive should equal(1);
+                    view.accordionActiveSection should equal(1);
                 });
                 
                 it(@"has views with proper frame", ^{
@@ -638,18 +638,18 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is third", ^{
                 beforeEach(^{
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(firstView).and_with(@"First Section").and_return(NO);
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(secondView).and_with(@"Second Section").and_return(YES);
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(YES);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(firstView).and_with(@"First Section").and_return(NO);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(secondView).and_with(@"Second Section").and_return(YES);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(YES);
                     view.delegate = newfakeDelegate;
                     
-                    view.accordionSectionActive = 2;
-                    view.accordionSectionActive = 0;
+                    view.accordionActiveSection = 2;
+                    view.accordionActiveSection = 0;
                     [view layoutSubviews];
                 });
                 
                 it(@"should stay on this view when first view is selected", ^{
-                    view.accordionSectionActive should equal(2);
+                    view.accordionActiveSection should equal(2);
                 });
                 
                 it(@"has views with proper frame", ^{
@@ -661,17 +661,17 @@ describe(@"OCBorghettiView", ^{
             
             context(@"active section is third", ^{
                 beforeEach(^{
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(YES);
-                    newfakeDelegate stub_method(@selector(accordion:shouldSelectSection:withTitle:)).with(view).with(secondSection).and_with(@"First Section").and_return(NO);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(thirdView).and_with(@"Third Section").and_return(YES);
+                    newfakeDelegate stub_method(@selector(accordion:shouldSelectView:withTitle:)).with(view).with(secondSection).and_with(@"First Section").and_return(NO);
                     view.delegate = newfakeDelegate;
                     
-                    view.accordionSectionActive = 2;
-                    view.accordionSectionActive = 1;
+                    view.accordionActiveSection = 2;
+                    view.accordionActiveSection = 1;
                     [view layoutSubviews];
                 });
                 
                 it(@"should stay on this view when second view is selected", ^{
-                    view.accordionSectionActive should equal(2);
+                    view.accordionActiveSection should equal(2);
                 });
                 
                 it(@"has views with proper frame", ^{

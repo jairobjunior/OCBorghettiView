@@ -75,21 +75,21 @@
     self.hasBorder = YES;
 }
 
-- (void)setAccordionSectionActive:(NSInteger)accordionSectionActive
+- (void)setAccordionActiveSection:(NSInteger)accordionActiveSection
 {
-    if (accordionSectionActive >= 0 && accordionSectionActive < self.sections.count) {
-        if ([self.delegate respondsToSelector:@selector(accordion:shouldSelectSection:withTitle:)] &&
+    if (accordionActiveSection >= 0 && accordionActiveSection < self.sections.count) {
+        if ([self.delegate respondsToSelector:@selector(accordion:shouldSelectView:withTitle:)] &&
             [self.delegate accordion:self
-                 shouldSelectSection:self.views[accordionSectionActive]
-                           withTitle:[[self.sections[accordionSectionActive] titleLabel] text]] == NO) return;
-
-        _accordionSectionActive = accordionSectionActive;
+                    shouldSelectView:self.views[accordionActiveSection]
+                           withTitle:[[self.sections[accordionActiveSection] titleLabel] text]] == NO) return;
+        
+        _accordionActiveSection = accordionActiveSection;
         [self setNeedsLayout];
         
-        if ([self.delegate respondsToSelector:@selector(accordion:didSelectSection:withTitle:)]) {
+        if ([self.delegate respondsToSelector:@selector(accordion:didSelectView:withTitle:)]) {
             [self.delegate accordion:self
-                    didSelectSection:self.views[self.accordionSectionActive]
-                           withTitle:[[self.sections[self.accordionSectionActive] titleLabel] text]];
+                       didSelectView:self.views[self.accordionActiveSection]
+                           withTitle:[[self.sections[self.accordionActiveSection] titleLabel] text]];
         }
     }
 }
@@ -118,7 +118,7 @@
 
 - (void)sectionSelected:(id)sender
 {
-    self.accordionSectionActive = [sender tag];
+    self.accordionActiveSection = [sender tag];
 }
 
 - (void)didAddSubview:(UIView *)subview
@@ -154,7 +154,7 @@
         height += sectionTitleFrame.size.height;
         sectionViewFrame.origin.y = height;
         
-        if (self.accordionSectionActive == i) {
+        if (self.accordionActiveSection == i) {
             [sectionTitle setImage:[UIImage imageNamed:@"OCBorghettiView.bundle/icon_down_arrow.png"]
                           forState:UIControlStateNormal];
             
