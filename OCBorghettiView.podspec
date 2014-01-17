@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = "OCBorghettiView"
-  s.version       = "0.0.3"
+  s.version       = "0.0.4"
   s.summary       = "An easy to use accordion view for iOS."
   s.description  = <<-DESC
   OCBorghettiView is an easy to use accordion view for iOS. It was named after Renato Borghetti,
