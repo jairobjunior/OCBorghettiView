@@ -78,6 +78,12 @@
 - (void)setAccordionActiveSection:(NSInteger)accordionActiveSection
 {
     if (accordionActiveSection >= 0 && accordionActiveSection < self.sections.count) {
+        if ([self.delegate respondsToSelector:@selector(accordion:willSelectView:withTitle:)]) {
+            [self.delegate accordion:self
+                      willSelectView:self.views[accordionActiveSection]
+                           withTitle:[[self.sections[accordionActiveSection] titleLabel] text]];
+        }
+        
         if ([self.delegate respondsToSelector:@selector(accordion:shouldSelectView:withTitle:)] &&
             [self.delegate accordion:self
                     shouldSelectView:self.views[accordionActiveSection]
@@ -176,6 +182,9 @@
         [self processBorder:sectionTitle atIndex:i];
         
         height += sectionViewFrame.size.height;
+        
+        if ([sectionView respondsToSelector:@selector(setClipsToBounds:)])
+            [sectionView setClipsToBounds:YES];
         
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:self.shouldAnimate ? 0.1f : 0.0f];

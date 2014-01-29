@@ -11,11 +11,15 @@
 @optional
 
 - (void)accordion:(OCBorghettiView *)accordion
-    didSelectView:(UIView *)view
+   willSelectView:(UIView *)view
         withTitle:(NSString *)title;
 
 - (BOOL)accordion:(OCBorghettiView *)accordion
  shouldSelectView:(UIView *)view
+        withTitle:(NSString *)title;
+
+- (void)accordion:(OCBorghettiView *)accordion
+    didSelectView:(UIView *)view
         withTitle:(NSString *)title;
 
 @end

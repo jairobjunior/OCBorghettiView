@@ -148,7 +148,11 @@ describe(@"OCBorghettiView", ^{
         
         describe(@"delegate", ^{
             context(@"is set", ^{
-                it(@"should calls the delegate method", ^{
+                it(@"should calls the delegate accordion:willSelectView:withTitle:", ^{
+                    fakeDelegate should have_received(@selector(accordion:willSelectView:withTitle:));
+                });
+                
+                it(@"should calls the delegate accordion:didSelectView:withTitle:", ^{
                     fakeDelegate should have_received(@selector(accordion:didSelectView:withTitle:));
                 });
             });

@@ -6,8 +6,7 @@
 
 @implementation ViewController
 
-#pragma mark -
-#pragma mark View lifecycle
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
@@ -63,8 +62,7 @@
                                 andView:sectionThree];
 }
 
-#pragma mark -
-#pragma mark UITableViewDelegate
+#pragma mark - <UITableViewDelegate, UITableViewDataSource>
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
