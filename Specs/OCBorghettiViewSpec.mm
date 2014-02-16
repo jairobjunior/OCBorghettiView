@@ -796,6 +796,7 @@ describe(@"OCBorghettiView", ^{
     describe(@"#processBorder:atIndex:", ^{
         __block UIButton *fakeSection;
         __block NSArray *fakeSubviews;
+        __block NSInteger index;
         
         beforeEach(^{
             fakeSection = nice_fake_for([UIButton class]);
@@ -803,11 +804,15 @@ describe(@"OCBorghettiView", ^{
             fakeSection stub_method(@selector(subviews)).and_return(fakeSubviews);
         });
         
+        subjectAction(^{
+            [view processBorder:fakeSection atIndex:index];
+        });
+        
         context(@"has border", ^{
             context(@"and index = 0", ^{
                 beforeEach(^{
                     view.hasBorder = YES;
-                    [view processBorder:fakeSection atIndex:0];
+                    index = 0;
                 });
                 
                 it(@"should not add border as subview", ^{
@@ -818,7 +823,7 @@ describe(@"OCBorghettiView", ^{
             context(@"and index > 0", ^{
                 beforeEach(^{
                     view.hasBorder = YES;
-                    [view processBorder:fakeSection atIndex:1];
+                    index = 1;
                 });
                 
                 it(@"should have a border as subview", ^{
@@ -830,7 +835,7 @@ describe(@"OCBorghettiView", ^{
         context(@"does not have border", ^{
             beforeEach(^{
                 view.hasBorder = NO;
-                [view processBorder:fakeSection atIndex:1];
+                index = 1;
             });
             
             it(@"should not add border as subview", ^{
