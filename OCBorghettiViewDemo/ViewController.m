@@ -23,15 +23,15 @@
 - (void)setupAccordion
 {
     self.accordion = [[OCBorghettiView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20)];
-    self.accordion.accordionSectionHeight = 40;
+    self.accordion.headerHeight = 40;
     
-    self.accordion.accordionSectionFont = [UIFont fontWithName:@"Avenir" size:16];
+    self.accordion.headerFont = [UIFont fontWithName:@"Avenir" size:16];
     
-    self.accordion.accordionSectionBorderColor = [UIColor colorWithRed:0.129f
+    self.accordion.headerBorderColor = [UIColor colorWithRed:0.129f
                                                                  green:0.514f
                                                                   blue:0.349f
                                                                  alpha:1.0f];
-    self.accordion.accordionSectionColor = [UIColor colorWithRed:0.0f
+    self.accordion.headerColor = [UIColor colorWithRed:0.0f
                                                            green:0.447f
                                                             blue:0.255f
                                                            alpha:1.0f];

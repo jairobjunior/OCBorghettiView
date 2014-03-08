@@ -86,19 +86,19 @@ describe(@"ViewController", ^{
         });
         
         it(@"has the correct section height", ^{
-            controller.accordion.accordionSectionHeight should equal(40);
+            controller.accordion.headerHeight should equal(40);
         });
         
         it(@"has the correct section color", ^{
-            controller.accordion.accordionSectionColor should equal([UIColor colorWithRed:0 green:0.447 blue:0.255 alpha:1]);
+            controller.accordion.headerColor should equal([UIColor colorWithRed:0 green:0.447 blue:0.255 alpha:1]);
         });
         
         it(@"has the correct section border color", ^{
-            controller.accordion.accordionSectionBorderColor should equal([UIColor colorWithRed:0.129 green:0.514 blue:0.349 alpha:1]);
+            controller.accordion.headerBorderColor should equal([UIColor colorWithRed:0.129 green:0.514 blue:0.349 alpha:1]);
         });
         
         it(@"has the correct font family and size", ^{
-            controller.accordion.accordionSectionFont should equal([UIFont fontWithName:@"Avenir" size:16]);
+            controller.accordion.headerFont should equal([UIFont fontWithName:@"Avenir" size:16]);
         });
         
         it(@"is a subview", ^{

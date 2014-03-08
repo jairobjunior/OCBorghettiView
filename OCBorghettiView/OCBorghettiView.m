@@ -10,13 +10,13 @@
 
 @implementation OCBorghettiView
 
-@synthesize accordionSectionBorderColor = _accordionSectionBorderColor;
+@synthesize headerBorderColor = _headerBorderColor;
 
 #pragma mark - Public
 
 #pragma mark View lifecycle
 
-- (id)init
+- (instancetype)init
 {
     @throw [NSException exceptionWithName:@"BadInitCall"
                                    reason:@"Initialize with initWithFrame: selector instead."
@@ -25,7 +25,7 @@
     return nil;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     
@@ -42,14 +42,14 @@
 {
     UIButton *section = [[UIButton alloc] init];
     
-    [section setBackgroundColor:self.accordionSectionColor];
+    [section setBackgroundColor:self.headerColor];
     [section setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [section setAutoresizesSubviews:YES];
     [section setAdjustsImageWhenHighlighted:NO];
     [section setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [section setTitle:sectionTitle forState:UIControlStateNormal];
-    [section.titleLabel setFont:self.accordionSectionFont];
-    [section setTitleColor:self.accordionSectionTitleColor
+    [section.titleLabel setFont:self.headerFont];
+    [section setTitleColor:self.headerTitleColor
                   forState:UIControlStateNormal];
     
     [sectionView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
@@ -69,13 +69,13 @@
 
 #pragma mark Setter
 
-- (void)setAccordionSectionBorderColor:(UIColor *)accordionSectionBorderColor
+- (void)setHeaderBorderColor:(UIColor *)accordionSectionBorderColor
 {
-    _accordionSectionBorderColor = accordionSectionBorderColor;
+    _headerBorderColor = accordionSectionBorderColor;
     self.hasBorder = YES;
 }
 
-- (void)setAccordionActiveSection:(NSInteger)accordionActiveSection
+- (void)setActiveSection:(NSInteger)accordionActiveSection
 {
     if (accordionActiveSection >= 0 && accordionActiveSection < self.sections.count) {
         if ([self.delegate respondsToSelector:@selector(accordion:willSelectView:withTitle:)]) {
@@ -89,13 +89,13 @@
                     shouldSelectView:self.views[accordionActiveSection]
                            withTitle:[[self.sections[accordionActiveSection] titleLabel] text]] == NO) return;
         
-        _accordionActiveSection = accordionActiveSection;
+        _activeSection = accordionActiveSection;
         [self setNeedsLayout];
         
         if ([self.delegate respondsToSelector:@selector(accordion:didSelectView:withTitle:)]) {
             [self.delegate accordion:self
-                       didSelectView:self.views[self.accordionActiveSection]
-                           withTitle:[[self.sections[self.accordionActiveSection] titleLabel] text]];
+                       didSelectView:self.views[self.activeSection]
+                           withTitle:[[self.sections[self.activeSection] titleLabel] text]];
         }
     }
 }
@@ -107,11 +107,11 @@
     self.views = [NSMutableArray new];
     self.sections = [NSMutableArray new];
     
-    self.accordionSectionHeight = 30;
-    self.accordionSectionColor = [UIColor blackColor];
-    self.accordionSectionFont = [UIFont fontWithName:@"Arial-BoldMT" size:16];
-    self.accordionSectionTitleColor = [UIColor whiteColor];
-    self.accordionSectionBorderColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
+    self.headerHeight = 30;
+    self.headerColor = [UIColor blackColor];
+    self.headerFont = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+    self.headerTitleColor = [UIColor whiteColor];
+    self.headerBorderColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
     self.hasBorder = NO;
     
     self.backgroundColor = [UIColor clearColor];
@@ -124,7 +124,7 @@
 
 - (void)sectionSelected:(id)sender
 {
-    self.accordionActiveSection = [sender tag];
+    self.activeSection = [sender tag];
 }
 
 - (void)didAddSubview:(UIView *)subview
@@ -144,7 +144,7 @@
         CGRect sectionTitleFrame = [sectionTitle frame];
         sectionTitleFrame.origin.x = 0;
         sectionTitleFrame.size.width = self.frame.size.width;
-        sectionTitleFrame.size.height = self.accordionSectionHeight;
+        sectionTitleFrame.size.height = self.headerHeight;
         [sectionTitle setFrame:sectionTitleFrame];
         
         [sectionTitle setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, -5.0f, 0.0f, 0.0f)];
@@ -153,18 +153,18 @@
         CGRect sectionViewFrame = [sectionView frame];
         sectionViewFrame.origin.x = 0;
         sectionViewFrame.size.width = self.frame.size.width;
-        sectionViewFrame.size.height = (self.frame.size.height - (self.numberOfSections * self.accordionSectionHeight));
+        sectionViewFrame.size.height = (self.frame.size.height - (self.numberOfSections * self.headerHeight));
         [sectionView setFrame:sectionViewFrame];
         
         sectionTitleFrame.origin.y = height;
         height += sectionTitleFrame.size.height;
         sectionViewFrame.origin.y = height;
         
-        if (self.accordionActiveSection == i) {
+        if (self.activeSection == i) {
             [sectionTitle setImage:[UIImage imageNamed:@"OCBorghettiView.bundle/icon_down_arrow.png"]
                           forState:UIControlStateNormal];
             
-            sectionViewFrame.size.height = (self.frame.size.height - (self.numberOfSections * self.accordionSectionHeight));
+            sectionViewFrame.size.height = (self.frame.size.height - (self.numberOfSections * self.headerHeight));
             [sectionView setFrame:CGRectMake(0, sectionViewFrame.origin.y, self.frame.size.width, 0)];
             
             if ([sectionView respondsToSelector:@selector(setScrollsToTop:)])
@@ -205,7 +205,7 @@
         if (index > 0) {
             UIView *topBorder = [[UIView alloc] init];
             topBorder.frame = CGRectMake(0.0f, 0.0f, sectionTitle.frame.size.width, 1.5f);
-            topBorder.backgroundColor = self.accordionSectionBorderColor;
+            topBorder.backgroundColor = self.headerBorderColor;
             topBorder.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             if (sectionTitle.subviews.count < 3) [sectionTitle addSubview:topBorder];
         }

@@ -43,12 +43,12 @@ If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghe
 - (void)addSectionWithTitle:(NSString *)sectionTitle
                     andView:(id)sectionView;
 
-@property (nonatomic, assign) NSInteger accordionActiveSection;
-@property (nonatomic, assign) NSInteger accordionSectionHeight;
-@property (nonatomic, strong) UIFont *accordionSectionFont;
-@property (nonatomic, strong) UIColor *accordionSectionTitleColor;
-@property (nonatomic, strong) UIColor *accordionSectionColor;
-@property (nonatomic, strong) UIColor *accordionSectionBorderColor;
+@property (nonatomic, assign) NSInteger activeSection;
+@property (nonatomic, assign) NSInteger headerHeight;
+@property (nonatomic, strong) UIFont *headerFont;
+@property (nonatomic, strong) UIColor *headerTitleColor;
+@property (nonatomic, strong) UIColor *headerColor;
+@property (nonatomic, strong) UIColor *headerBorderColor;
 @property (nonatomic, assign) id <OCBorghettiViewDelegate> delegate;
 
 @end
@@ -62,11 +62,15 @@ If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghe
 @optional
 
 - (void)accordion:(OCBorghettiView *)accordion
-    didSelectView:(UIView *)view
+   willSelectView:(UIView *)view
         withTitle:(NSString *)title;
 
 - (BOOL)accordion:(OCBorghettiView *)accordion
  shouldSelectView:(UIView *)view
+        withTitle:(NSString *)title;
+
+- (void)accordion:(OCBorghettiView *)accordion
+    didSelectView:(UIView *)view
         withTitle:(NSString *)title;
 
 @end
@@ -83,10 +87,10 @@ If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghe
     OCBorghettiView *accordion = [[OCBorghettiView alloc] initWithFrame:frame];
 	
 	// Settings and colors
-    accordion.accordionSectionHeight = 40;
-    accordion.accordionSectionFont = [UIFont fontWithName:@"Avenir" size:16];
-	accordion.accordionSectionBorderColor = [UIColor darkGrayColor];
-	accordion.accordionSectionColor = [UIColor grayColor];
+    accordion.headerHeight = 40;
+    accordion.headerFont = [UIFont fontWithName:@"Avenir" size:16];
+	accordion.headerBorderColor = [UIColor darkGrayColor];
+	accordion.headerColor = [UIColor grayColor];
     
     [self.view addSubview:accordion];
 
@@ -112,7 +116,7 @@ If you don't use CocoaPods, import the .m, .h, and .bundle files from ``OCBorghe
 
 ## License
 
-Copyright (c) 2013 Otavio Cordeiro. All rights reserved.
+Copyright (c) 2014 Otavio Cordeiro. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
