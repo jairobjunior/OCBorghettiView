@@ -67,6 +67,42 @@
       forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)addSectionWithTitle:(NSString *)sectionTitle
+                 headerView:(id)headerView
+                    andView:(id)sectionView
+{
+    UIButton *section = [[UIButton alloc] init];
+    
+    [section setBackgroundColor:self.headerColor];
+    [section setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [section setAutoresizesSubviews:YES];
+    [section setAdjustsImageWhenHighlighted:NO];
+    [section setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [section setTitle:sectionTitle forState:UIControlStateNormal];
+    [section.titleLabel setFont:self.headerFont];
+    [section setTitleColor:self.headerTitleColor
+                  forState:UIControlStateNormal];
+    
+    NSData *tempArchiveView = [NSKeyedArchiver archivedDataWithRootObject:headerView];
+    UIView *clonedSubView = [NSKeyedUnarchiver unarchiveObjectWithData:tempArchiveView];
+    
+    [section addSubview:clonedSubView];
+    
+    [sectionView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [sectionView setAutoresizesSubviews:YES];
+    
+    [self.sections addObject:section];
+    [self.views addObject:sectionView];
+    
+    [self addSubview:section];
+    [self addSubview:sectionView];
+    
+    [section setTag:self.sections.count - 1];
+    [section addTarget:self
+                action:@selector(sectionSelected:)
+      forControlEvents:UIControlEventTouchUpInside];
+}
+
 #pragma mark Setter
 
 - (void)setHeaderBorderColor:(UIColor *)accordionSectionBorderColor
@@ -161,7 +197,7 @@
         sectionViewFrame.origin.y = height;
         
         if (self.activeSection == i) {
-            [sectionTitle setImage:[UIImage imageNamed:@"OCBorghettiView.bundle/icon_down_arrow.png"]
+            [sectionTitle setImage:self.headerArrowImageOpended
                           forState:UIControlStateNormal];
             
             sectionViewFrame.size.height = (self.frame.size.height - (self.numberOfSections * self.headerHeight));
@@ -170,7 +206,7 @@
             if ([sectionView respondsToSelector:@selector(setScrollsToTop:)])
                 [sectionView setScrollsToTop:YES];
         } else {
-            [sectionTitle setImage:[UIImage imageNamed:@"OCBorghettiView.bundle/icon_right_arrow.png"]
+            [sectionTitle setImage:self.headerArrowImageClosed
                           forState:UIControlStateNormal];
             
             sectionViewFrame.size.height = 0;

@@ -49,6 +49,17 @@
 @interface OCBorghettiView : UIView
 
 /**
+ This method will add a section with a given title , header and view to the accordion.
+ 
+ @param sectionTitle The section title
+ @param headerView The view over the header button
+ @param sectionView The section view
+ */
+- (void)addSectionWithTitle:(NSString *)sectionTitle
+                 headerView:(id)headerView
+                    andView:(id)sectionView;
+
+/**
  This method will add a section with a given title and view to the accordion.
  
  @param sectionTitle The section title
@@ -88,6 +99,16 @@
  @warning Section title border is not visible by default. Set a color to display it.
  */
 @property (nonatomic, strong) UIColor *headerBorderColor;
+
+/**
+ Sets section header closed arrow image.
+ */
+@property (nonatomic, strong) UIImage *headerArrowImageClosed;
+
+/**
+ Sets section header opened arrow image.
+ */
+@property (nonatomic, strong) UIImage *headerArrowImageOpended;
 
 /**
  Sets the delegate.
